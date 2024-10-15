@@ -15,5 +15,5 @@ spec:
         app: worker
     spec:
       containers:
-      - image: learndemo/result
+      - image: learndemo/worker
         name: worker

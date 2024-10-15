@@ -1,0 +1,28 @@
+name: Result Build and Push to ACR
+
+on:
+  push:
+    branches: [ main ]
+    paths:
+      - 'result/**'
+
+jobs:
+  build-and-push:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Azure Container Registry Build
+        uses: Azure/acr-build@v1
+        with:
+          service_principal: ${{ secrets.service_principal }}
+          service_principal_password: ${{ secrets.service_principal_password }}
+          tenant: ${{ secrets.tenant }}
+          registry: ${{ secrets.registry }}
+          repository: ${{ secrets.repository }}
+          git_access_token: ${{ secrets.git_access_token }}
+          image: result
+          folder: result
+          dockerfile: result/Dockerfile
+          branch: main

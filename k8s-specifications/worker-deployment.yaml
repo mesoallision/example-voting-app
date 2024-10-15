@@ -15,5 +15,5 @@ spec:
         app: worker
     spec:
       containers:
-      - image: learndemo/worker
+      - image: learndemo.azurecr.io/worker:64db7419d4c7ec43300dc52dece0f1eab43316b7
         name: worker

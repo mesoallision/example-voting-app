@@ -15,7 +15,7 @@ spec:
         app: vote
     spec:
       containers:
-      - image: learndemo.azurecr.io/vote:8bbe50f6bf01e98ea3c255a7476c6bdccf1141bd
+      - image: learndemo.azurecr.io/vote:d410bf1d680f03d427ebc0b7089300ef64fbc313
         name: vote
         ports:
         - containerPort: 80

@@ -11,17 +11,19 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
-        uses: actions/checkout@v2
+        uses: actions/checkout@v4
 
-      - name: Azure Container Registry Build
-        uses: Azure/acr-build@v1
+      - name: 'Docker Login'
+        uses: azure/docker-login@v1
         with:
-          service_principal: ${{ secrets.service_principal }}
-          service_principal_password: ${{ secrets.service_principal_password }}
-          tenant: ${{ secrets.tenant }}
-          registry: ${{ secrets.registry }}
-          repository: result
-          image: result
-          folder: result
-          dockerfile: result/Dockerfile
-          branch: main
+          login-server: ${{ secrets.REGISTRY_LOGIN_SERVER }}
+          username: ${{ secrets.REGISTRY_USERNAME }}
+          password: ${{ secrets.REGISTRY_PASSWORD }}
+          
+      - name: Build the result image and push it to ACR
+        uses: docker/build-push-action@v5
+        with:
+          context: result
+          push: true
+          tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/result:${{ github.sha }}
+          file: result/Dockerfile

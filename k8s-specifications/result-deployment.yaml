@@ -15,7 +15,7 @@ spec:
         app: result
     spec:
       containers:
-      - image: learnazacr.azurecr.io/result:604bb91b17cbf1af1c40dac2fd336a3d130e01f4
+      - image: learnazacr.azurecr.io/result:376338a0cedee8224ef1a30e271576059221ba98
         name: result
         ports:
         - containerPort: 80

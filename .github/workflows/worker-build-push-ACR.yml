@@ -27,3 +27,15 @@ jobs:
           push: true
           tags: ${{ secrets.REGISTRY_LOGIN_SERVER }}/worker:${{ github.sha }}
           file: worker/Dockerfile
+      
+      - name: Update worker-deployment.yaml with new image tag
+        run: |
+          sed -i '/image:/s|image: .*|image: ${{ secrets.REGISTRY_LOGIN_SERVER }}/worker:${{ github.sha }}|' k8s-specifications/worker-deployment.yaml
+          
+      - name: Commit and push changes
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add k8s-specifications/worker-deployment.yaml
+          git commit -m "Update image tag in worker-deployment.yaml"
+          git push
